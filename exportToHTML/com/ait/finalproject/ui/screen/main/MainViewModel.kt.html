@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>MainViewModel.kt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainViewModel.kt</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">screen</span><span class="s2">.</span><span class="s1">main</span>
+
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">Uri</span>
+
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">getValue</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">mutableStateOf</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">setValue</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">lifecycle</span><span class="s2">.</span><span class="s1">ViewModel</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.*</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">LatLng</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">firebase</span><span class="s2">.</span><span class="s1">auth</span><span class="s2">.</span><span class="s1">FirebaseAuth</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">firebase</span><span class="s2">.</span><span class="s1">auth</span><span class="s2">.</span><span class="s1">ktx</span><span class="s2">.</span><span class="s1">auth</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">firebase</span><span class="s2">.</span><span class="s1">firestore</span><span class="s2">.</span><span class="s1">FirebaseFirestore</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">firebase</span><span class="s2">.</span><span class="s1">ktx</span><span class="s2">.</span><span class="s1">Firebase</span>
+<span class="s1">import kotlinx</span><span class="s2">.</span><span class="s1">coroutines</span><span class="s2">.</span><span class="s1">channels</span><span class="s2">.</span><span class="s1">awaitClose</span>
+<span class="s1">import kotlinx</span><span class="s2">.</span><span class="s1">coroutines</span><span class="s2">.</span><span class="s1">flow</span><span class="s2">.</span><span class="s1">callbackFlow</span>
+<span class="s1">import java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.*</span>
+
+<span class="s1">sealed </span><span class="s0">interface </span><span class="s1">MainUiState </span><span class="s2">{</span>
+    <span class="s0">object </span><span class="s1">Init : MainUiState</span>
+    <span class="s0">object </span><span class="s1">UploadPlaceInProgress : MainUiState</span>
+    <span class="s0">object </span><span class="s1">PlaceUploadSuccess : MainUiState</span>
+    <span class="s1">data </span><span class="s0">class </span><span class="s1">PlacesRetrieved</span><span class="s2">(</span><span class="s0">val </span><span class="s1">placeList: List</span><span class="s2">&lt;</span><span class="s1">PlaceWithId</span><span class="s2">&gt;) </span><span class="s1">: MainUiState</span>
+    <span class="s1">data </span><span class="s0">class </span><span class="s1">Error</span><span class="s2">(</span><span class="s0">val </span><span class="s1">error: String?</span><span class="s2">) </span><span class="s1">: MainUiState</span>
+<span class="s2">}</span>
+
+<span class="s0">class </span><span class="s1">MainViewModel : ViewModel</span><span class="s2">() {</span>
+    <span class="s1">companion </span><span class="s0">object </span><span class="s2">{</span>
+        <span class="s1">const </span><span class="s0">val </span><span class="s1">COLLECTION_PLACES </span><span class="s2">= </span><span class="s3">&quot;places&quot;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">var </span><span class="s1">mainUiState: MainUiState by mutableStateOf</span><span class="s2">(</span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Init</span><span class="s2">)</span>
+    <span class="s1">private </span><span class="s0">var </span><span class="s1">auth: FirebaseAuth</span>
+    <span class="s0">var </span><span class="s1">currentUserId: String</span>
+    <span class="s0">var </span><span class="s1">currentUserName: String</span>
+
+    <span class="s1">init </span><span class="s2">{</span>
+        <span class="s1">auth </span><span class="s2">= </span><span class="s1">Firebase</span><span class="s2">.</span><span class="s1">auth</span>
+        <span class="s1">currentUserId </span><span class="s2">= </span><span class="s1">auth</span><span class="s2">.</span><span class="s1">currentUser</span><span class="s2">!!.</span><span class="s1">uid</span>
+        <span class="s1">currentUserName </span><span class="s2">= </span><span class="s1">auth</span><span class="s2">.</span><span class="s1">currentUser</span><span class="s2">!!.</span><span class="s1">email</span><span class="s2">!!</span>
+    <span class="s2">}</span>
+
+    <span class="s0">fun </span><span class="s1">uploadPlace</span><span class="s2">(</span>
+        <span class="s1">latLng: LatLng</span><span class="s2">,</span>
+        <span class="s1">placeTitle: String</span><span class="s2">,</span>
+        <span class="s1">placeText: String</span><span class="s2">,</span>
+        <span class="s1">placeLiked: LikeType</span><span class="s2">,</span>
+        <span class="s1">categoryType: CategoryType</span><span class="s2">,</span>
+        <span class="s1">date: Date</span><span class="s2">,</span>
+        <span class="s1">atmosphere: Int</span><span class="s2">,</span>
+        <span class="s1">recommend: Boolean</span><span class="s2">, </span><span class="s4">// Pass comparison scores for ranking</span>
+        <span class="s1">ranking: Float</span><span class="s2">,</span>
+        <span class="s1">imageUri: String</span>
+    <span class="s2">) {</span>
+        <span class="s1">mainUiState </span><span class="s2">= </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">UploadPlaceInProgress</span>
+
+        <span class="s0">val </span><span class="s1">newPlace </span><span class="s2">= </span><span class="s1">Place</span><span class="s2">(</span>
+            <span class="s1">uid </span><span class="s2">= </span><span class="s1">currentUserId</span><span class="s2">,</span>
+            <span class="s1">author </span><span class="s2">= </span><span class="s1">currentUserName</span><span class="s2">,</span>
+            <span class="s1">placeTitle </span><span class="s2">= </span><span class="s1">placeTitle</span><span class="s2">,</span>
+            <span class="s1">placeText </span><span class="s2">= </span><span class="s1">placeText</span><span class="s2">,</span>
+            <span class="s1">lat </span><span class="s2">= </span><span class="s1">latLng</span><span class="s2">.</span><span class="s1">latitude</span><span class="s2">,</span>
+            <span class="s1">lng </span><span class="s2">= </span><span class="s1">latLng</span><span class="s2">.</span><span class="s1">longitude</span><span class="s2">,</span>
+            <span class="s1">likeType </span><span class="s2">= </span><span class="s1">placeLiked</span><span class="s2">,</span>
+            <span class="s1">categoryType </span><span class="s2">= </span><span class="s1">categoryType</span><span class="s2">,</span>
+            <span class="s1">date </span><span class="s2">= </span><span class="s1">date</span><span class="s2">,</span>
+            <span class="s1">atmosphere </span><span class="s2">= </span><span class="s1">atmosphere</span><span class="s2">,</span>
+            <span class="s1">recommend </span><span class="s2">= </span><span class="s1">recommend</span><span class="s2">,</span>
+            <span class="s1">ranked </span><span class="s2">= </span><span class="s1">ranking</span><span class="s2">,</span>
+            <span class="s1">imageUri </span><span class="s2">= </span><span class="s1">imageUri</span>
+        <span class="s2">)</span>
+
+        <span class="s0">val </span><span class="s1">placeCollection </span><span class="s2">= </span><span class="s1">FirebaseFirestore</span><span class="s2">.</span><span class="s1">getInstance</span><span class="s2">().</span><span class="s1">collection</span><span class="s2">(</span><span class="s1">COLLECTION_PLACES</span><span class="s2">)</span>
+        <span class="s1">placeCollection</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">newPlace</span><span class="s2">).</span><span class="s1">addOnSuccessListener </span><span class="s2">{ </span><span class="s1">documentReference </span><span class="s2">-&gt;</span>
+            <span class="s1">mainUiState </span><span class="s2">= </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlaceUploadSuccess</span>
+        <span class="s2">}.</span><span class="s1">addOnFailureListener </span><span class="s2">{</span>
+            <span class="s1">mainUiState </span><span class="s2">= </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Error</span><span class="s2">(</span><span class="s1">it</span><span class="s2">.</span><span class="s1">message</span><span class="s2">)</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">fun </span><span class="s1">fetchPlacesByCategory</span><span class="s2">(</span><span class="s1">category: CategoryType</span><span class="s2">, </span><span class="s1">callback: </span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Place</span><span class="s2">&gt;) -&gt; </span><span class="s1">Unit</span><span class="s2">) {</span>
+        <span class="s1">FirebaseFirestore</span><span class="s2">.</span><span class="s1">getInstance</span><span class="s2">().</span><span class="s1">collection</span><span class="s2">(</span><span class="s1">COLLECTION_PLACES</span><span class="s2">)</span>
+            <span class="s2">.</span><span class="s1">whereEqualTo</span><span class="s2">(</span><span class="s3">&quot;categoryType&quot;</span><span class="s2">, </span><span class="s1">category</span><span class="s2">.</span><span class="s1">name</span><span class="s2">)</span>
+    <span class="s2">}</span>
+
+
+        <span class="s0">fun </span><span class="s1">placeList</span><span class="s2">() = </span><span class="s1">callbackFlow </span><span class="s2">{</span>
+            <span class="s0">val </span><span class="s1">snapshotListener </span><span class="s2">=</span>
+                <span class="s1">FirebaseFirestore</span><span class="s2">.</span><span class="s1">getInstance</span><span class="s2">().</span><span class="s1">collection</span><span class="s2">(</span><span class="s1">COLLECTION_PLACES</span><span class="s2">)</span>
+                    <span class="s2">.</span><span class="s1">addSnapshotListener</span><span class="s2">() { </span><span class="s1">snapshot</span><span class="s2">, </span><span class="s1">e </span><span class="s2">-&gt;</span>
+                        <span class="s0">val </span><span class="s1">response </span><span class="s2">= </span><span class="s0">if </span><span class="s2">(</span><span class="s1">snapshot </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+
+                            <span class="s0">val </span><span class="s1">placeList </span><span class="s2">= </span><span class="s1">snapshot</span><span class="s2">.</span><span class="s1">toObjects</span><span class="s2">(</span><span class="s1">Place::</span><span class="s0">class</span><span class="s2">.</span><span class="s1">java</span><span class="s2">)</span>
+                            <span class="s0">val </span><span class="s1">placeWithIdList </span><span class="s2">= </span><span class="s1">mutableListOf</span><span class="s2">&lt;</span><span class="s1">PlaceWithId</span><span class="s2">&gt;()</span>
+
+                            <span class="s1">placeList</span><span class="s2">.</span><span class="s1">forEachIndexed </span><span class="s2">{ </span><span class="s1">index</span><span class="s2">, </span><span class="s1">place </span><span class="s2">-&gt;</span>
+                                <span class="s1">placeWithIdList</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span>
+                                    <span class="s1">PlaceWithId</span><span class="s2">(</span>
+                                        <span class="s1">snapshot</span><span class="s2">.</span><span class="s1">documents</span><span class="s2">[</span><span class="s1">index</span><span class="s2">].</span><span class="s1">id</span><span class="s2">,</span>
+                                        <span class="s1">place</span>
+                                    <span class="s2">)</span>
+                                <span class="s2">)</span>
+                            <span class="s2">}</span>
+
+                            <span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlacesRetrieved</span><span class="s2">(</span>
+                                <span class="s1">placeWithIdList</span>
+                            <span class="s2">)</span>
+                        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                            <span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Error</span><span class="s2">(</span><span class="s1">e?</span><span class="s2">.</span><span class="s1">message</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">())</span>
+                        <span class="s2">}</span>
+
+                        <span class="s1">trySend</span><span class="s2">(</span><span class="s1">response</span><span class="s2">) </span><span class="s4">// emit this value through the flow</span>
+                    <span class="s2">}</span>
+            <span class="s1">awaitClose </span><span class="s2">{</span>
+                <span class="s1">snapshotListener</span><span class="s2">.</span><span class="s1">remove</span><span class="s2">()</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s0">fun </span><span class="s1">deletePlace</span><span class="s2">(</span><span class="s1">placeKey: String</span><span class="s2">) {</span>
+            <span class="s1">FirebaseFirestore</span><span class="s2">.</span><span class="s1">getInstance</span><span class="s2">().</span><span class="s1">collection</span><span class="s2">(</span>
+                <span class="s1">COLLECTION_PLACES</span>
+            <span class="s2">).</span><span class="s1">document</span><span class="s2">(</span><span class="s1">placeKey</span><span class="s2">).</span><span class="s1">delete</span><span class="s2">()</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+</pre>
+</body>
+</html>

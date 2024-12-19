@@ -1,0 +1,389 @@
+<html>
+<head>
+<title>AddPlaceDialog.kt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+AddPlaceDialog.kt</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">screen</span><span class="s2">.</span><span class="s1">main</span>
+
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Context</span>
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Intent</span>
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">Uri</span>
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">ImageSwitcher</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">activity</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">rememberLauncherForActivityResult</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">activity</span><span class="s2">.</span><span class="s1">result</span><span class="s2">.</span><span class="s1">contract</span><span class="s2">.</span><span class="s1">ActivityResultContracts</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">Image</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">clickable</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">Arrangement</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">Column</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">Row</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">fillMaxWidth</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">height</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">padding</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">wrapContentHeight</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">shape</span><span class="s2">.</span><span class="s1">RoundedCornerShape</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">Icons</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">DateRange</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">outlined</span><span class="s2">.</span><span class="s1">ArrowDropDown</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">AlertDialog</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Button</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Checkbox</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">DatePicker</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">DropdownMenu</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">DropdownMenuItem</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">ExperimentalMaterial3Api</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Icon</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">IconButton</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">OutlinedCard</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">OutlinedTextField</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Slider</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Surface</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Text</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">rememberDatePickerState</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">Composable</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">getValue</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">mutableStateOf</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">remember</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">setValue</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">Alignment</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">Modifier</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">platform</span><span class="s2">.</span><span class="s1">LocalContext</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">font</span><span class="s2">.</span><span class="s1">FontFamily</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">unit</span><span class="s2">.</span><span class="s1">dp</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">unit</span><span class="s2">.</span><span class="s1">sp</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">window</span><span class="s2">.</span><span class="s1">Dialog</span>
+<span class="s1">import coil</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">rememberImagePainter</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">CategoryType</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">LikeType</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">Place</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">LatLng</span>
+<span class="s1">import java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">SimpleDateFormat</span>
+<span class="s1">import java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Calendar</span>
+<span class="s1">import java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Locale</span>
+<span class="s1">import java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Date</span>
+
+<span class="s1">@OptIn</span><span class="s2">(</span><span class="s1">ExperimentalMaterial3Api::</span><span class="s0">class</span><span class="s2">)</span>
+<span class="s1">@Composable</span>
+<span class="s0">fun </span><span class="s1">AddNewPlaceDialog</span><span class="s2">(</span>
+    <span class="s1">latLng: LatLng</span><span class="s2">,</span>
+    <span class="s1">onAddPlace: </span><span class="s2">(</span><span class="s1">String</span><span class="s2">, </span><span class="s1">String</span><span class="s2">, </span><span class="s1">LikeType</span><span class="s2">, </span><span class="s1">CategoryType</span><span class="s2">, </span><span class="s1">Date</span><span class="s2">, </span><span class="s1">Int</span><span class="s2">, </span><span class="s1">Boolean</span><span class="s2">, </span><span class="s1">Float</span><span class="s2">, </span><span class="s1">String</span><span class="s2">) -&gt; </span><span class="s1">Unit</span><span class="s2">,</span>
+    <span class="s1">onDialogClose: </span><span class="s2">() -&gt; </span><span class="s1">Unit </span><span class="s2">= {},</span>
+<span class="s2">) {</span>
+    <span class="s0">var </span><span class="s1">placeTitle by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">placeText by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">placeLiked by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">categorySelected by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">likeCategory: LikeType by remember </span><span class="s2">{</span>
+        <span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s1">LikeType</span><span class="s2">.</span><span class="s1">NEUTRAL</span><span class="s2">)</span>
+    <span class="s2">}</span>
+    <span class="s0">var </span><span class="s1">category:CategoryType by remember </span><span class="s2">{</span>
+        <span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">ENTERTAINMENT</span><span class="s2">)</span>
+    <span class="s2">}</span>
+    <span class="s0">var </span><span class="s1">date by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s1">Calendar</span><span class="s2">.</span><span class="s1">getInstance</span><span class="s2">().</span><span class="s1">time</span><span class="s2">)}</span>
+    <span class="s0">var </span><span class="s1">atmosphere by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s4">5</span><span class="s2">) } </span><span class="s5">// Default rank value</span>
+    <span class="s0">var </span><span class="s1">isDatePickerVisible by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s0">false</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">recommend by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s0">false</span><span class="s2">)}</span>
+    <span class="s0">var </span><span class="s1">ranking by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s4">5f</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">imageUri by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">&lt;</span><span class="s1">Uri?</span><span class="s2">&gt;(</span><span class="s0">null</span><span class="s2">) }</span>
+
+    <span class="s0">val </span><span class="s1">context </span><span class="s2">= </span><span class="s1">LocalContext</span><span class="s2">.</span><span class="s1">current</span>
+    <span class="s0">val </span><span class="s1">launcher </span><span class="s2">= </span><span class="s1">rememberLauncherForActivityResult</span><span class="s2">(</span>
+        <span class="s1">contract </span><span class="s2">= </span><span class="s1">ActivityResultContracts</span><span class="s2">.</span><span class="s1">GetContent</span><span class="s2">()</span>
+    <span class="s2">) { </span><span class="s1">uri: Uri? </span><span class="s2">-&gt;</span>
+        <span class="s1">imageUri </span><span class="s2">= </span><span class="s1">uri</span>
+    <span class="s2">}</span>
+
+    <span class="s1">Dialog</span><span class="s2">(</span><span class="s1">onDismissRequest </span><span class="s2">= </span><span class="s1">onDialogClose</span><span class="s2">) {</span>
+        <span class="s1">Surface</span><span class="s2">(</span>
+            <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                <span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">wrapContentHeight</span><span class="s2">(),</span>
+            <span class="s1">shape </span><span class="s2">= </span><span class="s1">RoundedCornerShape</span><span class="s2">(</span><span class="s1">size </span><span class="s2">= </span><span class="s4">6</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+        <span class="s2">) {</span>
+            <span class="s1">Column</span><span class="s2">(</span>
+                <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s4">10</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+            <span class="s2">) {</span>
+<span class="s5">//                Text(text = &quot;Lat: ${latLng.latitude}&quot;)</span>
+<span class="s5">//                Text(text = &quot;Long: ${latLng.longitude}&quot;)</span>
+                <span class="s1">Text</span><span class="s2">(</span>
+                    <span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Found A  Place?&quot;</span><span class="s2">,</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                        <span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">top </span><span class="s2">= </span><span class="s4">10</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">),</span>
+                <span class="s2">)</span>
+
+                <span class="s1">OutlinedTextField</span><span class="s2">(</span><span class="s1">value </span><span class="s2">= </span><span class="s1">placeTitle</span><span class="s2">,</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">(),</span>
+                    <span class="s1">label </span><span class="s2">= { </span><span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Place title&quot;</span><span class="s2">) },</span>
+                    <span class="s1">onValueChange </span><span class="s2">= {</span>
+                        <span class="s1">placeTitle </span><span class="s2">= </span><span class="s1">it</span>
+                    <span class="s2">}</span>
+                <span class="s2">)</span>
+                <span class="s1">OutlinedTextField</span><span class="s2">(</span><span class="s1">value </span><span class="s2">= </span><span class="s1">placeText</span><span class="s2">,</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">(),</span>
+                    <span class="s1">label </span><span class="s2">= { </span><span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Review&quot;</span><span class="s2">) },</span>
+                    <span class="s1">onValueChange </span><span class="s2">= {</span>
+                        <span class="s1">placeText </span><span class="s2">= </span><span class="s1">it</span>
+                    <span class="s2">}</span>
+                <span class="s2">)</span>
+
+                <span class="s5">// New UI for rank input</span>
+                <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Atmosphere: &quot;</span><span class="s2">)</span>
+                <span class="s1">Slider</span><span class="s2">(</span>
+                    <span class="s1">value </span><span class="s2">= </span><span class="s1">atmosphere</span><span class="s2">.</span><span class="s1">toFloat</span><span class="s2">(),</span>
+                    <span class="s1">onValueChange </span><span class="s2">= { </span><span class="s1">atmosphere </span><span class="s2">= </span><span class="s1">it</span><span class="s2">.</span><span class="s1">toInt</span><span class="s2">() },</span>
+                    <span class="s1">valueRange </span><span class="s2">= </span><span class="s4">0f</span><span class="s2">..</span><span class="s4">10f</span><span class="s2">,</span>
+                    <span class="s1">steps </span><span class="s2">= </span><span class="s4">9</span>
+                <span class="s2">)</span>
+
+                <span class="s1">Row</span><span class="s2">(</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">(),</span>
+                    <span class="s1">verticalAlignment </span><span class="s2">= </span><span class="s1">Alignment</span><span class="s2">.</span><span class="s1">CenterVertically</span>
+                <span class="s2">) {</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Date: &quot;</span><span class="s2">, </span><span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">end </span><span class="s2">= </span><span class="s4">8</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">))</span>
+                    <span class="s1">OutlinedTextField</span><span class="s2">(</span>
+                        <span class="s1">value </span><span class="s2">= </span><span class="s1">SimpleDateFormat</span><span class="s2">(</span><span class="s3">&quot;dd/MM/yyyy&quot;</span><span class="s2">, </span><span class="s1">Locale</span><span class="s2">.</span><span class="s1">getDefault</span><span class="s2">()).</span><span class="s1">format</span><span class="s2">(</span><span class="s1">date</span><span class="s2">),</span>
+                        <span class="s1">onValueChange </span><span class="s2">= {  },</span>
+                        <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">weight</span><span class="s2">(</span><span class="s4">1f</span><span class="s2">),</span>
+                        <span class="s1">enabled </span><span class="s2">= </span><span class="s0">false</span>
+                    <span class="s2">)</span>
+                    <span class="s1">IconButton</span><span class="s2">(</span>
+                        <span class="s1">onClick </span><span class="s2">= { </span><span class="s1">isDatePickerVisible </span><span class="s2">= </span><span class="s0">true </span><span class="s2">}</span>
+                    <span class="s2">) {</span>
+                        <span class="s1">Icon</span><span class="s2">(</span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">DateRange</span><span class="s2">, </span><span class="s1">contentDescription </span><span class="s2">= </span><span class="s3">&quot;Select Date&quot;</span><span class="s2">)</span>
+                    <span class="s2">}</span>
+
+                    <span class="s2">}</span>
+
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">isDatePickerVisible</span><span class="s2">) {</span>
+                    <span class="s1">DatePickerDialog</span><span class="s2">(</span>
+                        <span class="s1">onDismissRequest </span><span class="s2">= { </span><span class="s1">isDatePickerVisible </span><span class="s2">= </span><span class="s0">false </span><span class="s2">},</span>
+                        <span class="s1">onSelectDate </span><span class="s2">= { </span><span class="s1">selectedDate </span><span class="s2">-&gt;</span>
+                            <span class="s1">date </span><span class="s2">= </span><span class="s1">selectedDate</span>
+                            <span class="s5">//date = it</span>
+                            <span class="s1">isDatePickerVisible </span><span class="s2">= </span><span class="s0">false</span>
+                        <span class="s2">}</span>
+                    <span class="s2">)</span>
+
+                <span class="s2">}</span>
+
+                <span class="s1">SpinnerSample</span><span class="s2">(</span>
+                    <span class="s1">listOf</span><span class="s2">(</span>
+                        <span class="s3">&quot;Yes&quot;</span><span class="s2">, </span><span class="s3">&quot;No&quot;</span><span class="s2">, </span><span class="s3">&quot;Neutral&quot;</span>
+                    <span class="s2">),</span>
+                    <span class="s1">preselected </span><span class="s2">= </span><span class="s3">&quot;Did you Like it?&quot;</span><span class="s2">,</span>
+                    <span class="s1">onSelectionChanged </span><span class="s2">= { </span><span class="s1">placeLiked</span><span class="s2">= </span><span class="s1">it</span><span class="s2">},</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                        <span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">()</span>
+                        <span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">top </span><span class="s2">= </span><span class="s4">10</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+                <span class="s2">)</span>
+
+                <span class="s1">SpinnerSample</span><span class="s2">(</span>
+                    <span class="s1">listOf</span><span class="s2">(</span>
+                        <span class="s3">&quot;Museum&quot;</span><span class="s2">, </span><span class="s3">&quot;Nature&quot;</span><span class="s2">, </span><span class="s3">&quot;Sport&quot;</span><span class="s2">, </span><span class="s3">&quot;Entertainment&quot;</span><span class="s2">, </span><span class="s3">&quot;Religion&quot;</span><span class="s2">, </span><span class="s3">&quot;Food&quot;</span><span class="s2">, </span><span class="s3">&quot;Other&quot;</span>
+                    <span class="s2">),</span>
+                    <span class="s1">preselected </span><span class="s2">= </span><span class="s3">&quot;Category&quot;</span><span class="s2">,</span>
+                    <span class="s1">onSelectionChanged </span><span class="s2">= { </span><span class="s1">categorySelected</span><span class="s2">= </span><span class="s1">it</span><span class="s2">},</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                        <span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">()</span>
+                        <span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">top </span><span class="s2">= </span><span class="s4">10</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+                <span class="s2">)</span>
+
+                <span class="s5">// Checkbox for recommendation</span>
+                <span class="s1">Row</span><span class="s2">(</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                        <span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">()</span>
+                        <span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">top </span><span class="s2">= </span><span class="s4">10</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">),</span>
+                    <span class="s1">verticalAlignment </span><span class="s2">= </span><span class="s1">Alignment</span><span class="s2">.</span><span class="s1">CenterVertically</span>
+                <span class="s2">) {</span>
+                    <span class="s1">Checkbox</span><span class="s2">(</span>
+                        <span class="s1">checked </span><span class="s2">= </span><span class="s1">recommend</span><span class="s2">,</span>
+                        <span class="s1">onCheckedChange </span><span class="s2">= { </span><span class="s1">recommend </span><span class="s2">= </span><span class="s1">it </span><span class="s2">}</span>
+                    <span class="s2">)</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Recommend to a friend?&quot;</span><span class="s2">)</span>
+                <span class="s2">}</span>
+
+
+                <span class="s5">// Image picker</span>
+                <span class="s1">Button</span><span class="s2">(</span><span class="s1">onClick </span><span class="s2">= { </span><span class="s1">launcher</span><span class="s2">.</span><span class="s1">launch</span><span class="s2">(</span><span class="s3">&quot;image/*&quot;</span><span class="s2">) }) {</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Select Image&quot;</span><span class="s2">)</span>
+                <span class="s2">}</span>
+                <span class="s1">imageUri?</span><span class="s2">.</span><span class="s1">let </span><span class="s2">{</span>
+                    <span class="s1">Image</span><span class="s2">(</span>
+                        <span class="s1">painter </span><span class="s2">= </span><span class="s1">rememberImagePainter</span><span class="s2">(</span><span class="s1">it</span><span class="s2">),</span>
+                        <span class="s1">contentDescription </span><span class="s2">= </span><span class="s0">null</span><span class="s2">,</span>
+                        <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                            <span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">()</span>
+                            <span class="s2">.</span><span class="s1">height</span><span class="s2">(</span><span class="s4">200</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+                            <span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">top </span><span class="s2">= </span><span class="s4">10</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+                    <span class="s2">)</span>
+                <span class="s2">}</span>
+
+                <span class="s1">Button</span><span class="s2">(</span><span class="s1">onClick </span><span class="s2">= {</span>
+                    <span class="s5">//string to type</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">placeLiked </span><span class="s2">== </span><span class="s3">&quot;Yes&quot;</span><span class="s2">) {</span>
+                        <span class="s1">likeCategory </span><span class="s2">= </span><span class="s1">LikeType</span><span class="s2">.</span><span class="s1">YES</span>
+                    <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">placeLiked </span><span class="s2">== </span><span class="s3">&quot;No&quot;</span><span class="s2">){</span>
+                        <span class="s1">likeCategory </span><span class="s2">= </span><span class="s1">LikeType</span><span class="s2">.</span><span class="s1">NO</span>
+                    <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                        <span class="s1">likeCategory </span><span class="s2">= </span><span class="s1">LikeType</span><span class="s2">.</span><span class="s1">NEUTRAL</span>
+                    <span class="s2">}</span>
+
+
+                    <span class="s0">if</span><span class="s2">(</span><span class="s1">categorySelected </span><span class="s2">== </span><span class="s3">&quot;Entertainment&quot;</span><span class="s2">){</span>
+                        <span class="s1">category </span><span class="s2">= </span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">ENTERTAINMENT</span>
+                    <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">categorySelected </span><span class="s2">== </span><span class="s3">&quot;Food&quot;</span><span class="s2">){</span>
+                        <span class="s1">category </span><span class="s2">= </span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">FOOD</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else if</span><span class="s2">(</span><span class="s1">categorySelected </span><span class="s2">== </span><span class="s3">&quot;Museum&quot;</span><span class="s2">){</span>
+                        <span class="s1">category </span><span class="s2">= </span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">MUSEUM</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else if </span><span class="s2">(</span><span class="s1">categorySelected </span><span class="s2">== </span><span class="s3">&quot;Nature&quot;</span><span class="s2">)</span>
+                    <span class="s2">{ </span><span class="s1">category</span><span class="s2">= </span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">NATURE</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else if </span><span class="s2">(</span><span class="s1">categorySelected </span><span class="s2">== </span><span class="s3">&quot;Religion&quot;</span><span class="s2">){</span>
+                        <span class="s1">category </span><span class="s2">= </span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">RELIGION</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else if </span><span class="s2">(</span><span class="s1">categorySelected </span><span class="s2">== </span><span class="s3">&quot;Sport&quot;</span><span class="s2">){</span>
+                        <span class="s1">category </span><span class="s2">= </span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">SPORT</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else if </span><span class="s2">(</span><span class="s1">categorySelected </span><span class="s2">== </span><span class="s3">&quot;Other&quot;</span><span class="s2">){</span>
+                        <span class="s1">category </span><span class="s2">= </span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">OTHER</span>
+                    <span class="s2">}</span>
+
+                    <span class="s5">//Cal function here:</span>
+                    <span class="s5">//get ranking</span>
+
+<span class="s5">// Invoke onAddPlace with comparison score and rank</span>
+                    <span class="s1">ranking </span><span class="s2">= </span><span class="s1">calculateRanking</span><span class="s2">(</span><span class="s1">likeCategory</span><span class="s2">, </span><span class="s1">atmosphere</span><span class="s2">, </span><span class="s1">recommend</span><span class="s2">)</span>
+                    <span class="s1">onAddPlace</span><span class="s2">(</span><span class="s1">placeTitle</span><span class="s2">, </span><span class="s1">placeText</span><span class="s2">, </span><span class="s1">likeCategory</span><span class="s2">, </span><span class="s1">category</span><span class="s2">, </span><span class="s1">date</span><span class="s2">, </span><span class="s1">atmosphere</span><span class="s2">, </span><span class="s1">recommend</span><span class="s2">, </span><span class="s1">ranking</span><span class="s2">, </span><span class="s1">imageUri</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">())</span>
+                    <span class="s1">onDialogClose</span><span class="s2">()</span>
+                <span class="s2">}) {</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Add place&quot;</span><span class="s2">)</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+<span class="s1">@Composable</span>
+<span class="s0">fun </span><span class="s1">SpinnerSample</span><span class="s2">(</span>
+    <span class="s1">list: List</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt;,</span>
+    <span class="s1">preselected: String</span><span class="s2">,</span>
+    <span class="s1">onSelectionChanged: </span><span class="s2">(</span><span class="s1">myData: String</span><span class="s2">) -&gt; </span><span class="s1">Unit</span><span class="s2">,</span>
+    <span class="s1">modifier: Modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+<span class="s2">) {</span>
+    <span class="s0">var </span><span class="s1">selected by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s1">preselected</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">expanded by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s0">false</span><span class="s2">) } </span><span class="s5">// initial value</span>
+    <span class="s1">OutlinedCard</span><span class="s2">(</span>
+        <span class="s1">modifier </span><span class="s2">= </span><span class="s1">modifier</span><span class="s2">.</span><span class="s1">clickable </span><span class="s2">{</span>
+            <span class="s1">expanded </span><span class="s2">= !</span><span class="s1">expanded</span>
+        <span class="s2">}</span>
+    <span class="s2">) {</span>
+        <span class="s1">Row</span><span class="s2">(</span>
+            <span class="s1">horizontalArrangement </span><span class="s2">= </span><span class="s1">Arrangement</span><span class="s2">.</span><span class="s1">SpaceBetween</span><span class="s2">,</span>
+            <span class="s1">verticalAlignment </span><span class="s2">= </span><span class="s1">Alignment</span><span class="s2">.</span><span class="s1">Top</span><span class="s2">,</span>
+        <span class="s2">) {</span>
+            <span class="s1">Text</span><span class="s2">(</span>
+                <span class="s1">text </span><span class="s2">= </span><span class="s1">selected</span><span class="s2">,</span>
+                <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                    <span class="s2">.</span><span class="s1">weight</span><span class="s2">(</span><span class="s4">1f</span><span class="s2">)</span>
+                    <span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">horizontal </span><span class="s2">= </span><span class="s4">16</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">, </span><span class="s1">vertical </span><span class="s2">= </span><span class="s4">8</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+            <span class="s2">)</span>
+            <span class="s1">Icon</span><span class="s2">(</span>
+                <span class="s1">Icons</span><span class="s2">.</span><span class="s1">Outlined</span><span class="s2">.</span><span class="s1">ArrowDropDown</span><span class="s2">, </span><span class="s0">null</span><span class="s2">, </span><span class="s1">modifier </span><span class="s2">=</span>
+                <span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s4">8</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">))</span>
+            <span class="s1">DropdownMenu</span><span class="s2">(</span>
+                <span class="s1">expanded </span><span class="s2">= </span><span class="s1">expanded</span><span class="s2">,</span>
+                <span class="s1">onDismissRequest </span><span class="s2">= { </span><span class="s1">expanded </span><span class="s2">= </span><span class="s0">false </span><span class="s2">},</span>
+                <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">()</span>
+            <span class="s2">) {</span>
+                <span class="s1">list</span><span class="s2">.</span><span class="s1">forEach </span><span class="s2">{ </span><span class="s1">listEntry </span><span class="s2">-&gt;</span>
+                    <span class="s1">DropdownMenuItem</span><span class="s2">(</span>
+                        <span class="s1">onClick </span><span class="s2">= {</span>
+                            <span class="s1">selected </span><span class="s2">= </span><span class="s1">listEntry</span>
+                            <span class="s1">expanded </span><span class="s2">= </span><span class="s0">false</span>
+                            <span class="s1">onSelectionChanged</span><span class="s2">(</span><span class="s1">selected</span><span class="s2">)</span>
+                        <span class="s2">},</span>
+                        <span class="s1">text </span><span class="s2">= {</span>
+                            <span class="s1">Text</span><span class="s2">(</span>
+                                <span class="s1">text </span><span class="s2">= </span><span class="s1">listEntry</span><span class="s2">,</span>
+                                <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                                    <span class="s2">.</span><span class="s1">fillMaxWidth</span><span class="s2">()</span>
+                                    <span class="s2">.</span><span class="s1">align</span><span class="s2">(</span><span class="s1">Alignment</span><span class="s2">.</span><span class="s1">Start</span><span class="s2">)</span>
+                            <span class="s2">)</span>
+                        <span class="s2">},</span>
+                    <span class="s2">)</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+<span class="s1">@OptIn</span><span class="s2">(</span><span class="s1">ExperimentalMaterial3Api::</span><span class="s0">class</span><span class="s2">)</span>
+<span class="s1">@Composable</span>
+<span class="s0">fun </span><span class="s1">DatePickerDialog</span><span class="s2">(</span>
+    <span class="s1">onDismissRequest: </span><span class="s2">() -&gt; </span><span class="s1">Unit</span><span class="s2">,</span>
+    <span class="s1">onSelectDate: </span><span class="s2">(</span><span class="s1">Date</span><span class="s2">) -&gt; </span><span class="s1">Unit</span>
+<span class="s2">) {</span>
+    <span class="s0">var </span><span class="s1">selectedDate by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s1">Calendar</span><span class="s2">.</span><span class="s1">getInstance</span><span class="s2">().</span><span class="s1">time</span><span class="s2">) } </span><span class="s5">// Initialize with current time</span>
+    <span class="s0">var </span><span class="s1">datePickerState </span><span class="s2">= </span><span class="s1">rememberDatePickerState</span><span class="s2">(</span><span class="s1">selectedDate</span><span class="s2">.</span><span class="s1">time</span><span class="s2">)</span>
+
+    <span class="s1">AlertDialog</span><span class="s2">(</span>
+        <span class="s1">onDismissRequest </span><span class="s2">= </span><span class="s1">onDismissRequest</span><span class="s2">,</span>
+        <span class="s1">confirmButton </span><span class="s2">= {</span>
+            <span class="s1">Button</span><span class="s2">(</span>
+                <span class="s1">onClick </span><span class="s2">= {</span>
+                    <span class="s1">onSelectDate</span><span class="s2">(</span><span class="s1">Date</span><span class="s2">(</span><span class="s1">datePickerState</span><span class="s2">.</span><span class="s1">selectedDateMillis</span><span class="s2">!!))</span>
+                    <span class="s1">onDismissRequest</span><span class="s2">()</span>
+                <span class="s2">}</span>
+            <span class="s2">) {</span>
+                <span class="s1">Text</span><span class="s2">(</span><span class="s3">&quot;Select&quot;</span><span class="s2">)</span>
+            <span class="s2">}</span>
+        <span class="s2">},</span>
+        <span class="s1">dismissButton </span><span class="s2">= {</span>
+            <span class="s1">Button</span><span class="s2">(</span>
+                <span class="s1">onClick </span><span class="s2">= </span><span class="s1">onDismissRequest</span>
+            <span class="s2">) {</span>
+                <span class="s1">Text</span><span class="s2">(</span><span class="s3">&quot;Cancel&quot;</span><span class="s2">)</span>
+            <span class="s2">}</span>
+        <span class="s2">},</span>
+        <span class="s1">title </span><span class="s2">= {</span>
+            <span class="s1">Text</span><span class="s2">(</span><span class="s3">&quot;Select Date&quot;</span><span class="s2">)</span>
+        <span class="s2">},</span>
+        <span class="s1">text </span><span class="s2">= {</span>
+            <span class="s1">Column</span><span class="s2">(</span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s4">16</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)) {</span>
+
+                <span class="s1">DatePicker</span><span class="s2">(</span>
+                    <span class="s1">state </span><span class="s2">= </span><span class="s1">datePickerState</span><span class="s2">,</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">horizontal </span><span class="s2">= </span><span class="s4">16</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">),</span>
+                    <span class="s1">showModeToggle </span><span class="s2">= </span><span class="s0">true</span>
+                <span class="s2">)</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">)</span>
+<span class="s2">}</span>
+
+<span class="s0">fun </span><span class="s1">calculateRanking</span><span class="s2">(</span><span class="s1">likeCategory: LikeType</span><span class="s2">, </span><span class="s1">atmosphere: Int</span><span class="s2">, </span><span class="s1">recommend: Boolean</span><span class="s2">)</span><span class="s1">: Float</span><span class="s2">{</span>
+    <span class="s0">val </span><span class="s1">baseRank </span><span class="s2">= </span><span class="s0">when </span><span class="s2">(</span><span class="s1">likeCategory</span><span class="s2">) {</span>
+        <span class="s1">LikeType</span><span class="s2">.</span><span class="s1">YES </span><span class="s2">-&gt; </span><span class="s4">6.0f</span>
+        <span class="s1">LikeType</span><span class="s2">.</span><span class="s1">NEUTRAL </span><span class="s2">-&gt; </span><span class="s4">4.0f</span>
+        <span class="s1">LikeType</span><span class="s2">.</span><span class="s1">NO </span><span class="s2">-&gt; </span><span class="s4">2.0f</span>
+    <span class="s2">}</span>
+    <span class="s0">val </span><span class="s1">recommendAdjustment </span><span class="s2">= </span><span class="s0">if </span><span class="s2">(</span><span class="s1">recommend</span><span class="s2">) </span><span class="s4">1f </span><span class="s0">else </span><span class="s2">-</span><span class="s4">1f</span>
+    <span class="s0">val </span><span class="s1">atmosphereAdjustment </span><span class="s2">= </span><span class="s0">if </span><span class="s2">(</span><span class="s1">atmosphere </span><span class="s2">&gt; </span><span class="s4">5</span><span class="s2">) </span><span class="s1">baseRank </span><span class="s2">* </span><span class="s4">0.15f </span><span class="s0">else </span><span class="s1">baseRank </span><span class="s2">* -</span><span class="s4">0.15f</span>
+    <span class="s0">return </span><span class="s1">baseRank </span><span class="s2">+ </span><span class="s1">recommendAdjustment </span><span class="s2">+ </span><span class="s1">atmosphereAdjustment</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

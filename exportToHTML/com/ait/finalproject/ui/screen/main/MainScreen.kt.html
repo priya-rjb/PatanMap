@@ -1,0 +1,388 @@
+<html>
+<head>
+<title>MainScreen.kt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainScreen.kt</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">screen</span><span class="s2">.</span><span class="s1">main</span>
+
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Context</span>
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Intent</span>
+<span class="s1">import android</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">Uri</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">clickable</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">Column</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">Row</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">Spacer</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">fillMaxSize</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">padding</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">lazy</span><span class="s2">.</span><span class="s1">LazyColumn</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">Icons</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Info</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">List</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Map</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">BottomAppBar</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">CircularProgressIndicator</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">ExperimentalMaterial3Api</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Icon</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">IconButton</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">MaterialTheme</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">NavigationBar</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">NavigationBarItem</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Scaffold</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Text</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">TopAppBar</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">TopAppBarDefaults</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">Composable</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">collectAsState</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">getValue</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">mutableStateOf</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">remember</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">runtime</span><span class="s2">.</span><span class="s1">setValue</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">Modifier</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">platform</span><span class="s2">.</span><span class="s1">LocalContext</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">font</span><span class="s2">.</span><span class="s1">FontWeight</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">lifecycle</span><span class="s2">.</span><span class="s1">viewmodel</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">viewModel</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">navigation</span><span class="s2">.</span><span class="s1">NavHostController</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">navigation</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">NavHost</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">navigation</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">composable</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">navigation</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">rememberNavController</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">LatLng</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">GoogleMap</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">MapProperties</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">MapType</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">MapUiSettings</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">lazy</span><span class="s2">.</span><span class="s1">items</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">foundation</span><span class="s2">.</span><span class="s1">shape</span><span class="s2">.</span><span class="s1">RoundedCornerShape</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Delete</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Directions</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Movie</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Museum</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Nature</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Place</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">Sports</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">TempleHindu</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">ThumbDown</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">ThumbUp</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material</span><span class="s2">.</span><span class="s1">icons</span><span class="s2">.</span><span class="s1">filled</span><span class="s2">.</span><span class="s1">ThumbsUpDown</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">Card</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">material3</span><span class="s2">.</span><span class="s1">CardDefaults</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">Alignment</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">graphics</span><span class="s2">.</span><span class="s1">Color</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">graphics</span><span class="s2">.</span><span class="s1">vector</span><span class="s2">.</span><span class="s1">ImageVector</span>
+<span class="s1">import androidx</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">unit</span><span class="s2">.</span><span class="s1">dp</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">CategoryType</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">LikeType</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">Place</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">ait</span><span class="s2">.</span><span class="s1">finalproject</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">navigation</span><span class="s2">.</span><span class="s1">InnerNavigation</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">CameraPosition</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">Marker</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">MarkerState</span>
+<span class="s1">import com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">compose</span><span class="s2">.</span><span class="s1">rememberCameraPositionState</span>
+
+<span class="s1">@OptIn</span><span class="s2">(</span><span class="s1">ExperimentalMaterial3Api::</span><span class="s0">class</span><span class="s2">)</span>
+<span class="s1">@Composable</span>
+<span class="s0">fun </span><span class="s1">MainScreen</span><span class="s2">(</span>
+    <span class="s1">mainViewModel: MainViewModel </span><span class="s2">= </span><span class="s1">viewModel</span><span class="s2">()</span>
+<span class="s2">) {</span>
+    <span class="s0">val </span><span class="s1">context </span><span class="s2">= </span><span class="s1">LocalContext</span><span class="s2">.</span><span class="s1">current</span>
+    <span class="s0">var </span><span class="s1">selectedBottomTab by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s3">0</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">innerNavController: NavHostController </span><span class="s2">= </span><span class="s1">rememberNavController</span><span class="s2">()</span>
+
+    <span class="s1">Scaffold</span><span class="s2">(</span>
+        <span class="s1">topBar </span><span class="s2">= {</span>
+            <span class="s1">TopAppBar</span><span class="s2">(</span>
+                <span class="s1">title </span><span class="s2">= { </span><span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s4">&quot;Found&quot;</span><span class="s2">) },</span>
+                <span class="s1">colors </span><span class="s2">= </span><span class="s1">TopAppBarDefaults</span><span class="s2">.</span><span class="s1">smallTopAppBarColors</span><span class="s2">(</span><span class="s1">containerColor </span><span class="s2">= </span><span class="s1">MaterialTheme</span><span class="s2">.</span><span class="s1">colorScheme</span><span class="s2">.</span><span class="s1">secondaryContainer</span><span class="s2">),</span>
+                <span class="s1">actions </span><span class="s2">= {</span>
+                    <span class="s1">IconButton</span><span class="s2">(</span><span class="s1">onClick </span><span class="s2">= {</span>
+                        <span class="s5">//</span>
+                    <span class="s2">}) {</span>
+                        <span class="s1">Icon</span><span class="s2">(</span><span class="s1">imageVector </span><span class="s2">= </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Default</span><span class="s2">.</span><span class="s1">Info</span><span class="s2">, </span><span class="s1">contentDescription </span><span class="s2">= </span><span class="s0">null</span><span class="s2">)</span>
+                    <span class="s2">}</span>
+                <span class="s2">}</span>
+            <span class="s2">)</span>
+        <span class="s2">},</span>
+        <span class="s1">bottomBar </span><span class="s2">= {</span>
+            <span class="s1">BottomAppBar</span><span class="s2">(</span><span class="s1">content </span><span class="s2">= {</span>
+                <span class="s1">NavigationBar</span><span class="s2">(</span>
+                    <span class="s5">//containerColor = MaterialTheme.colorScheme.secondaryContainer</span>
+                <span class="s2">) {</span>
+                    <span class="s1">NavigationBarItem</span><span class="s2">(</span><span class="s1">selected </span><span class="s2">= </span><span class="s1">selectedBottomTab </span><span class="s2">== </span><span class="s3">0</span><span class="s2">,</span>
+                        <span class="s1">onClick </span><span class="s2">= {</span>
+                            <span class="s1">selectedBottomTab </span><span class="s2">= </span><span class="s3">0</span>
+                            <span class="s1">innerNavController</span><span class="s2">.</span><span class="s1">navigate</span><span class="s2">(</span><span class="s1">InnerNavigation</span><span class="s2">.</span><span class="s1">MapView</span><span class="s2">.</span><span class="s1">route</span><span class="s2">) {</span>
+                                <span class="s1">innerNavController</span><span class="s2">.</span><span class="s1">popBackStack</span><span class="s2">()</span>
+                            <span class="s2">}</span>
+                        <span class="s2">},</span>
+                        <span class="s1">label </span><span class="s2">= {</span>
+                            <span class="s1">Text</span><span class="s2">(</span>
+                                <span class="s1">text </span><span class="s2">= </span><span class="s4">&quot;Map&quot;</span><span class="s2">,</span>
+                                <span class="s1">fontWeight </span><span class="s2">= </span><span class="s1">FontWeight</span><span class="s2">.</span><span class="s1">SemiBold</span><span class="s2">,</span>
+                            <span class="s2">)</span>
+                        <span class="s2">},</span>
+                        <span class="s1">icon </span><span class="s2">= {</span>
+                            <span class="s1">Icon</span><span class="s2">(</span>
+                                <span class="s1">imageVector </span><span class="s2">= </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Default</span><span class="s2">.</span><span class="s1">Map</span><span class="s2">,</span>
+                                <span class="s1">contentDescription </span><span class="s2">= </span><span class="s4">&quot;Map&quot;</span><span class="s2">,</span>
+                            <span class="s2">)</span>
+                        <span class="s2">})</span>
+                    <span class="s1">NavigationBarItem</span><span class="s2">(</span><span class="s1">selected </span><span class="s2">= </span><span class="s1">selectedBottomTab </span><span class="s2">== </span><span class="s3">1</span><span class="s2">,</span>
+                        <span class="s1">onClick </span><span class="s2">= {</span>
+                            <span class="s1">selectedBottomTab </span><span class="s2">= </span><span class="s3">1</span>
+                            <span class="s1">innerNavController</span><span class="s2">.</span><span class="s1">navigate</span><span class="s2">(</span><span class="s1">InnerNavigation</span><span class="s2">.</span><span class="s1">ListView</span><span class="s2">.</span><span class="s1">route</span><span class="s2">) {</span>
+                                <span class="s1">innerNavController</span><span class="s2">.</span><span class="s1">popBackStack</span><span class="s2">()</span>
+                            <span class="s2">}</span>
+                        <span class="s2">},</span>
+                        <span class="s1">label </span><span class="s2">= {</span>
+                            <span class="s1">Text</span><span class="s2">(</span>
+                                <span class="s1">text </span><span class="s2">= </span><span class="s4">&quot;List&quot;</span><span class="s2">,</span>
+                                <span class="s1">fontWeight </span><span class="s2">= </span><span class="s1">FontWeight</span><span class="s2">.</span><span class="s1">SemiBold</span><span class="s2">,</span>
+                            <span class="s2">)</span>
+                        <span class="s2">},</span>
+                        <span class="s1">icon </span><span class="s2">= {</span>
+                            <span class="s1">Icon</span><span class="s2">(</span>
+                                <span class="s1">imageVector </span><span class="s2">= </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Default</span><span class="s2">.</span><span class="s1">List</span><span class="s2">,</span>
+                                <span class="s1">contentDescription </span><span class="s2">= </span><span class="s4">&quot;List&quot;</span><span class="s2">,</span>
+                            <span class="s2">)</span>
+                        <span class="s2">})</span>
+                <span class="s2">}</span>
+            <span class="s2">})</span>
+        <span class="s2">}</span>
+    <span class="s2">) { </span><span class="s1">innerPadding </span><span class="s2">-&gt;</span>
+        <span class="s1">Column</span><span class="s2">(</span>
+            <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">innerPadding</span><span class="s2">)</span>
+        <span class="s2">) {</span>
+            <span class="s1">NavHost</span><span class="s2">(</span>
+                <span class="s1">navController </span><span class="s2">= </span><span class="s1">innerNavController</span><span class="s2">,</span>
+                <span class="s1">startDestination </span><span class="s2">= </span><span class="s1">InnerNavigation</span><span class="s2">.</span><span class="s1">MapView</span><span class="s2">.</span><span class="s1">route</span>
+            <span class="s2">) {</span>
+                <span class="s1">composable</span><span class="s2">(</span><span class="s1">InnerNavigation</span><span class="s2">.</span><span class="s1">MapView</span><span class="s2">.</span><span class="s1">route</span><span class="s2">) {</span>
+                    <span class="s1">MapView</span><span class="s2">(</span><span class="s1">mainViewModel</span><span class="s2">)</span>
+                <span class="s2">}</span>
+                <span class="s1">composable</span><span class="s2">(</span><span class="s1">InnerNavigation</span><span class="s2">.</span><span class="s1">ListView</span><span class="s2">.</span><span class="s1">route</span><span class="s2">) {</span>
+                    <span class="s1">ListView</span><span class="s2">(</span><span class="s1">mainViewModel</span><span class="s2">)</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">when </span><span class="s2">(</span><span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">mainUiState</span><span class="s2">) {</span>
+                <span class="s0">is </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Error </span><span class="s2">-&gt; {</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= (</span><span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">mainUiState </span><span class="s0">as </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Error</span><span class="s2">).</span><span class="s1">error</span><span class="s2">!!)</span>
+                <span class="s2">}</span>
+
+                <span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Init </span><span class="s2">-&gt; {}</span>
+                <span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlaceUploadSuccess </span><span class="s2">-&gt; {}</span>
+                <span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">UploadPlaceInProgress </span><span class="s2">-&gt; {</span>
+                    <span class="s1">CircularProgressIndicator</span><span class="s2">()</span>
+                <span class="s2">}</span>
+
+                <span class="s0">is </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlacesRetrieved </span><span class="s2">-&gt; {}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+<span class="s1">@Composable</span>
+<span class="s0">fun </span><span class="s1">MapView</span><span class="s2">(</span>
+    <span class="s1">mainViewModel: MainViewModel</span>
+<span class="s2">) {</span>
+    <span class="s0">val </span><span class="s1">context </span><span class="s2">= </span><span class="s1">LocalContext</span><span class="s2">.</span><span class="s1">current</span>
+
+    <span class="s0">var </span><span class="s1">showAdd by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s0">false</span><span class="s2">) }</span>
+    <span class="s0">var </span><span class="s1">clickedCoord by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">(</span><span class="s1">LatLng</span><span class="s2">(</span><span class="s3">47.4979</span><span class="s2">, </span><span class="s3">19.0402</span><span class="s2">)) }</span>
+    <span class="s0">var </span><span class="s1">previousPlaces by remember </span><span class="s2">{ </span><span class="s1">mutableStateOf</span><span class="s2">&lt;</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Place</span><span class="s2">&gt;&gt;(</span><span class="s1">emptyList</span><span class="s2">()) }</span>
+
+    <span class="s0">val </span><span class="s1">cameraPositionState </span><span class="s2">= </span><span class="s1">rememberCameraPositionState </span><span class="s2">{</span>
+        <span class="s1">position </span><span class="s2">= </span><span class="s1">CameraPosition</span><span class="s2">.</span><span class="s1">fromLatLngZoom</span><span class="s2">(</span><span class="s1">LatLng</span><span class="s2">(</span><span class="s3">47.4979</span><span class="s2">, </span><span class="s3">19.0402</span><span class="s2">), </span><span class="s3">12f</span><span class="s2">)</span>
+    <span class="s2">}</span>
+
+    <span class="s0">var </span><span class="s1">uiSettings by remember </span><span class="s2">{</span>
+        <span class="s1">mutableStateOf</span><span class="s2">(</span>
+            <span class="s1">MapUiSettings</span><span class="s2">(</span>
+                <span class="s1">zoomControlsEnabled </span><span class="s2">= </span><span class="s0">true</span><span class="s2">,</span>
+                <span class="s1">zoomGesturesEnabled </span><span class="s2">= </span><span class="s0">true</span>
+            <span class="s2">)</span>
+        <span class="s2">)</span>
+    <span class="s2">}</span>
+    <span class="s0">var </span><span class="s1">mapProperties by remember </span><span class="s2">{</span>
+        <span class="s1">mutableStateOf</span><span class="s2">(</span>
+            <span class="s1">MapProperties</span><span class="s2">(</span>
+                <span class="s1">mapType </span><span class="s2">= </span><span class="s1">MapType</span><span class="s2">.</span><span class="s1">NORMAL</span>
+            <span class="s2">)</span>
+        <span class="s2">)</span>
+    <span class="s2">}</span>
+
+    <span class="s1">GoogleMap</span><span class="s2">(</span>
+        <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">fillMaxSize</span><span class="s2">(),</span>
+        <span class="s1">uiSettings </span><span class="s2">= </span><span class="s1">uiSettings</span><span class="s2">,</span>
+        <span class="s1">properties </span><span class="s2">= </span><span class="s1">mapProperties</span><span class="s2">,</span>
+        <span class="s1">onMapClick </span><span class="s2">= {</span>
+            <span class="s1">showAdd </span><span class="s2">= </span><span class="s0">true</span>
+            <span class="s1">clickedCoord </span><span class="s2">= </span><span class="s1">it</span>
+        <span class="s2">},</span>
+        <span class="s1">cameraPositionState </span><span class="s2">= </span><span class="s1">cameraPositionState</span>
+    <span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s0">val </span><span class="s1">placeListState </span><span class="s2">= </span><span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">placeList</span><span class="s2">().</span><span class="s1">collectAsState</span><span class="s2">(</span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Init</span><span class="s2">)</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">placeListState</span><span class="s2">.</span><span class="s1">value </span><span class="s0">is </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlacesRetrieved</span><span class="s2">) {</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">place </span><span class="s0">in </span><span class="s2">(</span><span class="s1">placeListState</span><span class="s2">.</span><span class="s1">value </span><span class="s0">as </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlacesRetrieved</span><span class="s2">).</span><span class="s1">placeList</span><span class="s2">) {</span>
+                <span class="s1">Marker</span><span class="s2">(</span>
+                    <span class="s1">state </span><span class="s2">= </span><span class="s1">MarkerState</span><span class="s2">(</span>
+                        <span class="s1">position </span><span class="s2">= </span><span class="s1">LatLng</span><span class="s2">(</span>
+                            <span class="s1">place</span><span class="s2">.</span><span class="s1">place</span><span class="s2">.</span><span class="s1">lat</span><span class="s2">,</span>
+                            <span class="s1">place</span><span class="s2">.</span><span class="s1">place</span><span class="s2">.</span><span class="s1">lng</span>
+                        <span class="s2">)</span>
+                    <span class="s2">),</span>
+                    <span class="s1">title </span><span class="s2">= </span><span class="s4">&quot;</span><span class="s0">${</span><span class="s1">place</span><span class="s2">.</span><span class="s1">place</span><span class="s2">.</span><span class="s1">placeTitle</span><span class="s0">}</span><span class="s4">&quot;</span>
+                <span class="s2">)</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">if </span><span class="s2">(</span><span class="s1">showAdd</span><span class="s2">) {</span>
+        <span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">fetchPlacesByCategory</span><span class="s2">(</span><span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">ENTERTAINMENT</span><span class="s2">) { </span><span class="s1">places </span><span class="s2">-&gt;</span>
+            <span class="s1">previousPlaces </span><span class="s2">= </span><span class="s1">places</span>
+        <span class="s2">}</span>
+            <span class="s1">AddNewPlaceDialog</span><span class="s2">(</span>
+                <span class="s1">latLng </span><span class="s2">= </span><span class="s1">clickedCoord</span><span class="s2">,</span>
+                <span class="s1">onAddPlace </span><span class="s2">= { </span><span class="s1">placeTitle</span><span class="s2">, </span><span class="s1">placeText</span><span class="s2">, </span><span class="s1">placeLiked</span><span class="s2">, </span><span class="s1">categorySelected</span><span class="s2">, </span><span class="s1">date</span><span class="s2">, </span><span class="s1">atmosphere</span><span class="s2">, </span><span class="s1">recommend</span><span class="s2">, </span><span class="s1">rank</span><span class="s2">, </span><span class="s1">imageUri </span><span class="s2">-&gt;</span>
+                    <span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">uploadPlace</span><span class="s2">(</span><span class="s1">clickedCoord</span><span class="s2">, </span><span class="s1">placeTitle</span><span class="s2">, </span><span class="s1">placeText</span><span class="s2">, </span><span class="s1">placeLiked</span><span class="s2">, </span><span class="s1">categorySelected</span><span class="s2">, </span><span class="s1">date</span><span class="s2">, </span><span class="s1">atmosphere</span><span class="s2">, </span><span class="s1">recommend</span><span class="s2">, </span><span class="s1">rank</span><span class="s2">, </span><span class="s1">imageUri</span><span class="s2">)</span>
+                    <span class="s1">showAdd </span><span class="s2">= </span><span class="s0">false</span>
+                <span class="s2">},</span>
+                <span class="s1">onDialogClose </span><span class="s2">= { </span><span class="s1">showAdd </span><span class="s2">= </span><span class="s0">false </span><span class="s2">}</span>
+            <span class="s2">)</span>
+        <span class="s5">//}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+
+<span class="s1">@Composable</span>
+<span class="s0">fun </span><span class="s1">ListView</span><span class="s2">(</span><span class="s1">mainViewModel: MainViewModel</span><span class="s2">) {</span>
+    <span class="s0">val </span><span class="s1">placeListState </span><span class="s2">= </span><span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">placeList</span><span class="s2">().</span><span class="s1">collectAsState</span><span class="s2">(</span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Init</span><span class="s2">)</span>
+
+    <span class="s0">if </span><span class="s2">(</span><span class="s1">placeListState</span><span class="s2">.</span><span class="s1">value </span><span class="s2">== </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">Init</span><span class="s2">) {</span>
+        <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s4">&quot;Initializing..&quot;</span><span class="s2">)</span>
+    <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">placeListState</span><span class="s2">.</span><span class="s1">value </span><span class="s0">is </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlacesRetrieved</span><span class="s2">) {</span>
+        <span class="s1">LazyColumn</span><span class="s2">() {</span>
+            <span class="s1">items</span><span class="s2">((</span><span class="s1">placeListState</span><span class="s2">.</span><span class="s1">value </span><span class="s0">as </span><span class="s1">MainUiState</span><span class="s2">.</span><span class="s1">PlacesRetrieved</span><span class="s2">).</span><span class="s1">placeList</span><span class="s2">) {</span>
+                <span class="s1">PlaceCard</span><span class="s2">(</span>
+                    <span class="s1">place </span><span class="s2">= </span><span class="s1">it</span><span class="s2">.</span><span class="s1">place</span><span class="s2">,</span>
+                    <span class="s1">onRemoveItem </span><span class="s2">= {</span>
+                        <span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">deletePlace</span><span class="s2">(</span><span class="s1">it</span><span class="s2">.</span><span class="s1">placeId</span><span class="s2">)</span>
+                    <span class="s2">},</span>
+                    <span class="s1">currentUserId </span><span class="s2">= </span><span class="s1">mainViewModel</span><span class="s2">.</span><span class="s1">currentUserId</span>
+                <span class="s2">)</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+
+<span class="s1">@OptIn</span><span class="s2">(</span><span class="s1">ExperimentalMaterial3Api::</span><span class="s0">class</span><span class="s2">)</span>
+<span class="s1">@Composable</span>
+<span class="s0">fun </span><span class="s1">PlaceCard</span><span class="s2">(</span>
+    <span class="s1">place: Place</span><span class="s2">,</span>
+    <span class="s1">onRemoveItem: </span><span class="s2">() -&gt; </span><span class="s1">Unit </span><span class="s2">= {},</span>
+    <span class="s1">currentUserId: String </span><span class="s2">= </span><span class="s4">&quot;&quot;</span>
+<span class="s2">) {</span>
+    <span class="s0">val </span><span class="s1">likeIcon: ImageVector </span><span class="s2">= </span><span class="s0">when </span><span class="s2">(</span><span class="s1">place</span><span class="s2">.</span><span class="s1">likeType</span><span class="s2">) {</span>
+        <span class="s1">LikeType</span><span class="s2">.</span><span class="s1">YES </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">ThumbUp</span>
+        <span class="s1">LikeType</span><span class="s2">.</span><span class="s1">NO </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">ThumbDown</span>
+        <span class="s1">LikeType</span><span class="s2">.</span><span class="s1">NEUTRAL </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">ThumbsUpDown</span>
+    <span class="s2">}</span>
+
+    <span class="s0">val </span><span class="s1">categoryIcon: ImageVector </span><span class="s2">= </span><span class="s0">when </span><span class="s2">(</span><span class="s1">place</span><span class="s2">.</span><span class="s1">categoryType</span><span class="s2">) {</span>
+        <span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">ENTERTAINMENT </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Movie</span>
+        <span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">NATURE </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Nature</span>
+        <span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">SPORT </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Sports</span>
+        <span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">FOOD </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Movie</span>
+        <span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">RELIGION </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">TempleHindu</span>
+        <span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">MUSEUM</span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Museum</span>
+        <span class="s1">CategoryType</span><span class="s2">.</span><span class="s1">OTHER </span><span class="s2">-&gt; </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Place</span>
+    <span class="s2">}</span>
+
+    <span class="s1">Card</span><span class="s2">(</span>
+        <span class="s1">colors </span><span class="s2">= </span><span class="s1">CardDefaults</span><span class="s2">.</span><span class="s1">cardColors</span><span class="s2">(</span>
+            <span class="s1">containerColor </span><span class="s2">= </span><span class="s1">MaterialTheme</span><span class="s2">.</span><span class="s1">colorScheme</span><span class="s2">.</span><span class="s1">surfaceVariant</span><span class="s2">,</span>
+        <span class="s2">),</span>
+        <span class="s1">shape </span><span class="s2">= </span><span class="s1">RoundedCornerShape</span><span class="s2">(</span><span class="s3">20</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">),</span>
+        <span class="s1">elevation </span><span class="s2">= </span><span class="s1">CardDefaults</span><span class="s2">.</span><span class="s1">cardElevation</span><span class="s2">(</span>
+            <span class="s1">defaultElevation </span><span class="s2">= </span><span class="s3">10</span><span class="s2">.</span><span class="s1">dp</span>
+        <span class="s2">),</span>
+        <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s3">5</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+    <span class="s2">) {</span>
+        <span class="s1">Column</span><span class="s2">(</span>
+            <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s3">10</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+        <span class="s2">) {</span>
+            <span class="s1">Row</span><span class="s2">(</span>
+                <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s3">20</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">),</span>
+                <span class="s1">verticalAlignment </span><span class="s2">= </span><span class="s1">Alignment</span><span class="s2">.</span><span class="s1">CenterVertically</span>
+            <span class="s2">) {</span>
+                <span class="s0">val </span><span class="s1">context </span><span class="s2">= </span><span class="s1">LocalContext</span><span class="s2">.</span><span class="s1">current</span>
+                <span class="s1">Icon</span><span class="s2">(</span>
+                    <span class="s1">imageVector </span><span class="s2">= </span><span class="s1">categoryIcon</span><span class="s2">,</span>
+                    <span class="s1">contentDescription </span><span class="s2">= </span><span class="s0">null</span><span class="s2">,</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">end </span><span class="s2">= </span><span class="s3">8</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+                <span class="s2">)</span>
+                <span class="s1">Column</span><span class="s2">(</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">weight</span><span class="s2">(</span><span class="s3">1f</span><span class="s2">)</span>
+                <span class="s2">) {</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s1">place</span><span class="s2">.</span><span class="s1">author</span><span class="s2">)</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s1">place</span><span class="s2">.</span><span class="s1">placeTitle</span><span class="s2">)</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s1">place</span><span class="s2">.</span><span class="s1">placeText</span><span class="s2">)</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s4">&quot;</span><span class="s0">${</span><span class="s1">place</span><span class="s2">.</span><span class="s1">lat</span><span class="s0">}</span><span class="s4">, </span><span class="s0">${</span><span class="s1">place</span><span class="s2">.</span><span class="s1">lng</span><span class="s0">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+                    <span class="s1">Text</span><span class="s2">(</span><span class="s1">text </span><span class="s2">= </span><span class="s4">&quot;</span><span class="s0">${</span><span class="s1">place</span><span class="s2">.</span><span class="s1">ranked</span><span class="s0">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+                <span class="s2">}</span>
+                <span class="s1">Icon</span><span class="s2">(</span>
+                    <span class="s1">imageVector </span><span class="s2">= </span><span class="s1">likeIcon</span><span class="s2">,</span>
+                    <span class="s1">contentDescription </span><span class="s2">= </span><span class="s4">&quot;Like type&quot;</span><span class="s2">,</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">start </span><span class="s2">= </span><span class="s3">8</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">)</span>
+                <span class="s2">)</span>
+                <span class="s1">Spacer</span><span class="s2">(</span><span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">fillMaxSize</span><span class="s2">(</span><span class="s3">0.10f</span><span class="s2">))</span>
+                <span class="s1">Icon</span><span class="s2">(</span>
+                    <span class="s1">imageVector </span><span class="s2">= </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Directions</span><span class="s2">,</span>
+                    <span class="s1">contentDescription </span><span class="s2">= </span><span class="s4">&quot;Map&quot;</span><span class="s2">,</span>
+                    <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">clickable </span><span class="s2">{</span>
+                        <span class="s1">intentStreetMaps</span><span class="s2">(</span><span class="s1">context</span><span class="s2">, </span><span class="s1">place</span><span class="s2">)</span>
+                    <span class="s2">},</span>
+                    <span class="s1">tint </span><span class="s2">= </span><span class="s1">Color</span><span class="s2">.</span><span class="s1">Black</span>
+                <span class="s2">)</span>
+                <span class="s1">Spacer</span><span class="s2">(</span><span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span><span class="s2">.</span><span class="s1">fillMaxSize</span><span class="s2">(</span><span class="s3">0.10f</span><span class="s2">))</span>
+
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">currentUserId </span><span class="s2">== </span><span class="s1">place</span><span class="s2">.</span><span class="s1">uid</span><span class="s2">) {</span>
+                    <span class="s1">Icon</span><span class="s2">(</span>
+                        <span class="s1">imageVector </span><span class="s2">= </span><span class="s1">Icons</span><span class="s2">.</span><span class="s1">Filled</span><span class="s2">.</span><span class="s1">Delete</span><span class="s2">,</span>
+                        <span class="s1">contentDescription </span><span class="s2">= </span><span class="s4">&quot;Delete&quot;</span><span class="s2">,</span>
+                        <span class="s1">modifier </span><span class="s2">= </span><span class="s1">Modifier</span>
+                            <span class="s2">.</span><span class="s1">clickable </span><span class="s2">{ </span><span class="s1">onRemoveItem</span><span class="s2">() }</span>
+                            <span class="s2">.</span><span class="s1">padding</span><span class="s2">(</span><span class="s1">start </span><span class="s2">= </span><span class="s3">8</span><span class="s2">.</span><span class="s1">dp</span><span class="s2">),</span>
+                        <span class="s1">tint </span><span class="s2">= </span><span class="s1">Color</span><span class="s2">.</span><span class="s1">Red</span>
+                    <span class="s2">)</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+<span class="s1">private </span><span class="s0">fun </span><span class="s1">intentStreetMaps</span><span class="s2">(</span><span class="s1">context: Context</span><span class="s2">, </span><span class="s1">place: Place</span><span class="s2">) {</span>
+    <span class="s0">val </span><span class="s1">gmmIntentUri </span><span class="s2">= </span><span class="s1">Uri</span><span class="s2">.</span><span class="s1">parse</span><span class="s2">(</span>
+        <span class="s5">//&quot;google.streetview:cbll=29.9774614,31.1329645&amp;cbp=0,30,0,0,-15&quot;)</span>
+        <span class="s4">&quot;google.streetview:cbll=</span><span class="s0">${</span><span class="s1">place</span><span class="s2">.</span><span class="s1">lat</span><span class="s0">}</span><span class="s4">,</span><span class="s0">${</span><span class="s1">place</span><span class="s2">.</span><span class="s1">lng</span><span class="s0">}</span><span class="s4">&amp;cbp=0,30,0,0,-15&quot;</span><span class="s2">)</span>
+    <span class="s0">val </span><span class="s1">mapIntent </span><span class="s2">= </span><span class="s1">Intent</span><span class="s2">(</span><span class="s1">Intent</span><span class="s2">.</span><span class="s1">ACTION_VIEW</span><span class="s2">, </span><span class="s1">gmmIntentUri</span><span class="s2">)</span>
+    <span class="s1">mapIntent</span><span class="s2">.</span><span class="s1">setPackage</span><span class="s2">(</span><span class="s4">&quot;com.google.android.apps.maps&quot;</span><span class="s2">)</span>
+    <span class="s1">context</span><span class="s2">.</span><span class="s1">startActivity</span><span class="s2">(</span><span class="s1">mapIntent</span><span class="s2">)</span>
+<span class="s2">}</span></pre>
+</body>
+</html>
